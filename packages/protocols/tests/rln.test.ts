@@ -1,5 +1,5 @@
 import { ZkIdentity } from "@zk-kit/identity"
-import { getCurveFromName } from "ffjavascript"
+import { getCurveFromName, utils } from "ffjavascript"
 import * as fs from "fs"
 import * as path from "path"
 import { RLN } from "../src"
@@ -43,6 +43,10 @@ describe("RLN", () => {
 
       const merkleProof = generateMerkleProof(15, BigInt(0), leaves, identityCommitment)
       const witness = RLN.genWitness(secretHash, merkleProof, epoch, signal, rlnIdentifier)
+
+      let witness_str = JSON.stringify(utils.stringifyBigInts(witness), null, 2);
+
+      console.log("*** witness:\n\n", witness_str);
 
       expect(typeof witness).toBe("object")
     })
